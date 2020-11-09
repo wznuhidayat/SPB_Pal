@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 /**
@@ -27,7 +28,7 @@ class BaseController extends Controller
 	 * @var array
 	 */
 	protected $helpers = [];
-
+	protected $uri;
 	/**
 	 * Constructor.
 	 */
@@ -35,12 +36,12 @@ class BaseController extends Controller
 	{
 		// Do Not Edit This Line
 		parent::initController($request, $response, $logger);
-
+		session();
+		$this->uri = service('uri');
 		//--------------------------------------------------------------------
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
 		// E.g.:
 		// $this->session = \Config\Services::session();
 	}
-
 }

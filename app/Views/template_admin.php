@@ -1,12 +1,7 @@
-<?php
 
-// if($content){
-//     echo view($content);
-// }
-echo view('partials/head');
-echo view('partials/navbar');
-echo view('partials/sidebar');
-if($content){
-    echo view($content);
-}
-echo view('partials/js');
+
+<?= $this->include('partials/head') ?>
+<?= $this->include('partials/navbar') ?>
+<?= $this->include('partials/sidebar') ?>
+<?= $this->renderSection('content') ?>
+<?= $this->include('partials/js') ?>

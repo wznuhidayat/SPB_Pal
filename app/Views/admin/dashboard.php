@@ -1,3 +1,6 @@
+<?= $this->extend('template_admin') ?>
+
+<?= $this->section('content') ?>
 <section class="content">
         <div class="container-fluid">
             <div class="block-header">
@@ -309,3 +312,4 @@
             </div>
         </div>
     </section>
+    <?= $this->endSection() ?>

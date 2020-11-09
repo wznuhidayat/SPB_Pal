@@ -28,22 +28,10 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li class="active">
-                        <a href="index.html">
+                    <li class="<?= $title == 'Dashboard' ? 'active' : '' ?>">
+                        <a href="<?= base_url()?>/administator">
                             <i class="material-icons">home</i>
                             <span>Home</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pages/typography.html">
-                            <i class="material-icons">assignment</i>
-                            <span>Perizinan Barang</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pages/helper-classes.html">
-                            <i class="material-icons">layers</i>
-                            <span>Helper Classes</span>
                         </a>
                     </li>
                    
@@ -51,72 +39,23 @@
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">assignment</i>
-                            <span>Forms</span>
+                            <span>Perizinan Barang</span>
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="pages/forms/basic-form-elements.html">Basic Form Elements</a>
+                                <a href="<?= base_url()?>/administator/itemPerson">Barang Pribadi</a>
                             </li>
                             <li>
-                                <a href="pages/forms/advanced-form-elements.html">Advanced Form Elements</a>
+                                <a href="pages/forms/advanced-form-elements.html">Barang Kontrak</a>
                             </li>
                             <li>
                                 <a href="pages/forms/form-examples.html">Form Examples</a>
                             </li>
-                            <li>
-                                <a href="pages/forms/form-validation.html">Form Validation</a>
-                            </li>
-                            <li>
-                                <a href="pages/forms/form-wizard.html">Form Wizard</a>
-                            </li>
-                            <li>
-                                <a href="pages/forms/editors.html">Editors</a>
-                            </li>
+                            
                         </ul>
                     </li>
                     
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">trending_down</i>
-                            <span>Multi Level Menu</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="javascript:void(0);">
-                                    <span>Menu Item</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);">
-                                    <span>Menu Item - 2</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" class="menu-toggle">
-                                    <span>Level - 2</span>
-                                </a>
-                                <ul class="ml-menu">
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <span>Menu Item</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);" class="menu-toggle">
-                                            <span>Level - 3</span>
-                                        </a>
-                                        <ul class="ml-menu">
-                                            <li>
-                                                <a href="javascript:void(0);">
-                                                    <span>Level - 4</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
+                    
                     <li>
                         <a href="pages/typography.html">
                             <i class="material-icons">report_problem</i>
@@ -130,13 +69,42 @@
                         </a>
                     </li>
                     <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">more</i>
+                            <span>Lainya</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="<?= base_url()?>/administator/satuan">Satuan</a>
+                            </li>
+                            <li>
+                                <a href="pages/forms/advanced-form-elements.html">Jabatan</a>
+                            </li>
+                            <li>
+                                <a href="pages/forms/form-examples.html">Lokasi</a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                    <li>
                         <a href="pages/changelogs.html">
                             <i class="material-icons">update</i>
                             <span>Changelogs</span>
                         </a>
                     </li>
                     <li class="header">Users</li>
-                    
+                    <li class="<?= $title == 'Petugas' ? 'active' : '' ?>">
+                        <a href="<?= base_url()?>/administator/petugas">
+                            <i class="material-icons">person</i>
+                            <span>Petugas</span>
+                        </a>
+                    </li>
+                    <li class="<?= $title == 'Admin' ? 'active' : '' ?>">
+                        <a href="<?= base_url()?>/administator/admin">
+                            <i class="material-icons">person</i>
+                            <span>Admin</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <!-- #Menu -->
