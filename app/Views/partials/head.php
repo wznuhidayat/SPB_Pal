@@ -25,7 +25,9 @@
     <link href="<?= base_url()?>/template/AdminBSBMaterialDesign/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
     <!-- Morris Chart Css-->
     <link href="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/morrisjs/morris.css" rel="stylesheet" />
-    
+     <!-- Sweetalert Css -->
+     <link href="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
     <!-- Dropzone Css -->
     <link href="<?= base_url()?>/template/AdminBSBMaterialDesign/plugins/dropzone/dropzone.css" rel="stylesheet">
 

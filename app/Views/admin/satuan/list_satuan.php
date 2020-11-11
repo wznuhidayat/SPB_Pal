@@ -29,7 +29,7 @@
                             TABEL ADMIN
                         </h2>
                         <ul class="header-dropdown m-r-5">
-                            <button type="button" onclick="window.location.href='<?= base_url('administator/addAdmin') ?>';" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="left" title="Tambah Admin">
+                            <button type="button" onclick="window.location.href='<?= base_url('administator/addSatuan') ?>';" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="left" title="Tambah Admin">
                                 <!-- <a href="<?= base_url() ?>/administator/addAdmin" > -->
                                 <i class="material-icons">person_add</i>
                                 <span>Add Admin</span>
@@ -43,44 +43,34 @@
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                     <tr>
-                                        <th>Image</th>
-                                        <th>NIP</th>
+                                        <th>Code Satuan</th>
                                         <th>Nama</th>
-                                        <th>Gender</th>
                                         <th>Option</th>
-
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>Image</th>
-                                        <th>NIP</th>
+                                        <th>Code Satuan</th>
                                         <th>Nama</th>
-                                        <th>Gender</th>
                                         <th>Option</th>
                                     </tr>
                                 </tfoot>
 
                                 <tbody>
                                     <?php
-                                    foreach ($admin as $adm) : ?>
-                                        <tr id="<?php echo $adm['id_admin']; ?>">
+                                    foreach ($satuan as $adm) : ?>
+                                        <tr>
+                                            <td><?= $adm["code_satuan"] ?></td>
                                             <td><?= $adm["nama"] ?></td>
-                                            <td><?= $adm["nip"] ?></td>
-                                            <td><?= $adm["nama"] ?></td>
-                                            <td><?= $adm["gender"] ?></td>
                                             <td class="row">
-                                                <div class="button-group js-sweetalert button">
-                                                    <button type="button" onclick="window.location.href='<?= base_url('admin/edit/' . $adm['id_admin']) ?>';" class="btn btn-xs bg-light-blue waves-effect" data-toggle="tooltip" data-placement="top" title="Detail">
-                                                        <i class="material-icons">remove_red_eye</i>
-                                                    </button>
-                                                    <button type="button" onclick="window.location.href='<?= base_url('admin/edit/' . $adm['id_admin']) ?>';" class="btn btn-xs bg-default waves-effect" data-toggle="tooltip" data-placement="top" title="Edit" >
+                                                <div class="button-group">
+                                                    <button type="button" onclick="window.location.href='<?= base_url('satuan/edit/' . $adm['id_satuan']) ?>';" class="btn btn-xs bg-default waves-effect" data-toggle="tooltip" data-placement="top" title="Edit" >
                                                         <i class="material-icons">edit</i>
                                                     </button>
-                                                    <form action="/admin/delete/<?= $adm['id_admin']; ?>" style="display: inline;" method="post" >
+                                                    <form action="/satuan/delete/<?= $adm['id_satuan']; ?>" style="display: inline;" method="post">
                                                         <?= csrf_field(); ?>
                                                         <input type="hidden" name="_method" value="DELETE">
-                                                        <button type="button" class="btn btn-xs bg-red waves-effect remove" data-toggle="tooltip" data-placement="top" title="Delete" >
+                                                        <button type="submit" class="btn btn-xs bg-red waves-effect" data-toggle="tooltip" data-placement="top" title="Delete">
                                                             <i class="material-icons">delete</i>
                                                         </button>
                                                     </form>

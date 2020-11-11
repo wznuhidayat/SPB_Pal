@@ -33,7 +33,11 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->get('/login', 'Administator::login');
 $routes->get('/admin/edit/(:segment)','Administator::editAdmin/$1');
+$routes->get('/satuan/edit/(:segment)','Administator::editSatuan/$1');
+$routes->get('/petugas/edit/(:segment)','Administator::editPetugas/$1');
 $routes->delete('/admin/delete/(:num)','Administator::delAdmin/$1');
+$routes->delete('/satuan/delete/(:num)','Administator::delSatuan/$1');
+$routes->delete('/petugas/delete/(:num)','Administator::delPetugas/$1');
 
 /**
  * --------------------------------------------------------------------

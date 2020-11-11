@@ -129,7 +129,7 @@
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active in active" id="skins">
                     <ul class="demo-choose-skin">
-                        <li data-theme="red" class="active">
+                        <li data-theme="red" >
                             <div class="red"></div>
                             <span>Red</span>
                         </li>
@@ -149,7 +149,7 @@
                             <div class="indigo"></div>
                             <span>Indigo</span>
                         </li>
-                        <li data-theme="blue">
+                        <li data-theme="blue" class="active">
                             <div class="blue"></div>
                             <span>Blue</span>
                         </li>

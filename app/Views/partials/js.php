@@ -29,6 +29,8 @@
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/flot-charts/jquery.flot.pie.js"></script>
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/flot-charts/jquery.flot.categories.js"></script>
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/flot-charts/jquery.flot.time.js"></script>
+<!-- Bootstrap Notify Plugin Js -->
+<script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/bootstrap-notify/bootstrap-notify.js"></script>
 
 <!-- Sparkline Chart Plugin Js -->
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/jquery-sparkline/jquery.sparkline.js"></script>
@@ -48,14 +50,87 @@
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/js/pages/ui/tooltips-popovers.js"></script>
 
 <!-- Dropzone Plugin Js -->
-<!-- <script src="<?= base_url()?>/template/AdminBSBMaterialDesign/plugins/dropzone/dropzone.js"></script> -->
+<!-- <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/dropzone/dropzone.js"></script> -->
 
+<!-- SweetAlert Plugin Js -->
+<script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/sweetalert/sweetalert.min.js"></script>
+
+ 
 <!-- Custom Js -->
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/js/admin.js"></script>
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/js/pages/tables/jquery-datatable.js"></script>
-
+<script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/js/pages/ui/dialogs.js"></script>
 <!-- Demo Js -->
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/js/demo.js"></script>
+<script type="text/javascript">
+    $(".remove").click(function(){
+        var id = $(this).parents("tr").attr("id");
+    
+       swal({
+        title: "Apakah anda yakin ingin menghapus?",
+        text: "Data yang dihapus tidak akan bisa di kembalikan!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Ya, hapus data!",
+        cancelButtonText: "Tidak, batal!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      },
+      function(isConfirm) {
+        if (isConfirm) {
+          $.ajax({
+             url: '/admin/delete/'+id,
+             type: 'DELETE',
+             error: function() {
+                alert('Something is wrong');
+             },
+             success: function(data) {
+                  $("#"+id).remove();
+                  swal("Terhapus!", "Data telah dihapus.", "success");
+             }
+          });
+        } else {
+          swal("Batal", "Data tidak jadi dihapus :)", "error");
+        }
+      });
+     
+    });
+    $(".remove-ptgs").click(function(){
+        var id = $(this).parents("tr").attr("id");
+    
+       swal({
+        title: "Apakah anda yakin ingin menghapus?",
+        text: "Data yang dihapus tidak akan bisa di kembalikan!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Ya, hapus data!",
+        cancelButtonText: "Tidak, batal!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      },
+      function(isConfirm) {
+        if (isConfirm) {
+          $.ajax({
+             url: '/petugas/delete/'+id,
+             type: 'DELETE',
+             error: function() {
+                alert('Something is wrong');
+             },
+             success: function(data) {
+                  $("#"+id).remove();
+                  swal("Terhapus!", "Data telah dihapus.", "success");
+             }
+          });
+        } else {
+          swal("Batal", "Data tidak jadi dihapus :)", "error");
+        }
+      });
+     
+    });
+    
+</script>
 
 </body>
 

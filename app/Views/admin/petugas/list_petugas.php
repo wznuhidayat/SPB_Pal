@@ -29,11 +29,9 @@
                             TABEL ADMIN
                         </h2>
                         <ul class="header-dropdown m-r-5">
-                            <button type="button" onclick="window.location.href='<?= base_url('administator/addAdmin') ?>';" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="left" title="Tambah Admin">
-                                <!-- <a href="<?= base_url() ?>/administator/addAdmin" > -->
+                            <button type="button" onclick="window.location.href='<?= base_url('administator/addPetugas') ?>';" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="left" title="Tambah Admin">
                                 <i class="material-icons">person_add</i>
-                                <span>Add Admin</span>
-                                <!-- </a> -->
+                                <span>Add Petugas</span>
                             </button>
 
                         </ul>
@@ -63,24 +61,24 @@
 
                                 <tbody>
                                     <?php
-                                    foreach ($admin as $adm) : ?>
-                                        <tr id="<?php echo $adm['id_admin']; ?>">
-                                            <td><?= $adm["nama"] ?></td>
-                                            <td><?= $adm["nip"] ?></td>
-                                            <td><?= $adm["nama"] ?></td>
-                                            <td><?= $adm["gender"] ?></td>
+                                    foreach ($petugas as $ptgs) : ?>
+                                        <tr id="<?php echo $ptgs['id_petugas']; ?>">
+                                            <td><?= $ptgs["nama"] ?></td>
+                                            <td><?= $ptgs["nip"] ?></td>
+                                            <td><?= $ptgs["nama"] ?></td>
+                                            <td><?= $ptgs["gender"] ?></td>
                                             <td class="row">
-                                                <div class="button-group js-sweetalert button">
-                                                    <button type="button" onclick="window.location.href='<?= base_url('admin/edit/' . $adm['id_admin']) ?>';" class="btn btn-xs bg-light-blue waves-effect" data-toggle="tooltip" data-placement="top" title="Detail">
-                                                        <i class="material-icons">remove_red_eye</i>
+                                                <div class="button-group">
+                                                    <button type="button" onclick="window.location.href='<?= base_url('petugas/edit/' . $ptgs['id_petugas']) ?>';" class="btn btn-xs bg-light-blue waves-effect" data-toggle="tooltip" data-placement="top" title="Detail">
+                                                        <i class="material-icons clearfix">remove_red_eye</i>
                                                     </button>
-                                                    <button type="button" onclick="window.location.href='<?= base_url('admin/edit/' . $adm['id_admin']) ?>';" class="btn btn-xs bg-default waves-effect" data-toggle="tooltip" data-placement="top" title="Edit" >
+                                                    <button type="button" onclick="window.location.href='<?= base_url('petugas/edit/' . $ptgs['id_petugas']) ?>';" class="btn btn-xs bg-default waves-effect" data-toggle="tooltip" data-placement="top" title="Edit" >
                                                         <i class="material-icons">edit</i>
                                                     </button>
-                                                    <form action="/admin/delete/<?= $adm['id_admin']; ?>" style="display: inline;" method="post" >
+                                                    <form action="/admin/delete/<?= $ptgs['id_petugas']; ?>" style="display: inline;" method="post">
                                                         <?= csrf_field(); ?>
                                                         <input type="hidden" name="_method" value="DELETE">
-                                                        <button type="button" class="btn btn-xs bg-red waves-effect remove" data-toggle="tooltip" data-placement="top" title="Delete" >
+                                                        <button type="button" class="btn btn-xs bg-red waves-effect remove-ptgs" data-toggle="tooltip" data-placement="top" title="Delete">
                                                             <i class="material-icons">delete</i>
                                                         </button>
                                                     </form>

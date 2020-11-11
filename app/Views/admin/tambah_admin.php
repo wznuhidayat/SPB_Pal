@@ -27,10 +27,11 @@
                     <div class="header">
                         <h2>ADD ADMIN</h2>
                         <ul class="header-dropdown m-r-5">
-                            <button type="button" class="btn bg-amber waves-effect" data-toggle="tooltip" data-placement="left" title="Kembali">
-                                <a href="<?= base_url() ?>/administator/admin">
-                                    <i class="material-icons">keyboard_backspace</i>
-                                </a>
+                            <button type="button" onclick="window.location.href='<?= base_url('administator/admin') ?>';" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="left" title="Tambah Admin">
+                                <!-- <a href="<?= base_url() ?>/administator/addAdmin" > -->
+                                <i class="material-icons">keyboard_backspace</i>
+                                <span>Back</span>
+                                <!-- </a> -->
                             </button>
                         </ul>
                     </div>
@@ -46,7 +47,7 @@
                             </div>
                             <div class="form-group form-float">
                                 <div class="form-line <?= ($validation->hasError('name')) ? 'error' : '' ?>">
-                                    <input type="text" class="form-control" name="name" required aria-required="true" >
+                                    <input type="text" class="form-control" name="name" required aria-required="true">
                                     <label class="form-label">Name</label>
                                     <label id="minmaxlength-error" class="error" for="minmaxlength"><?= $validation->getError('name'); ?></label>
                                 </div>
@@ -81,7 +82,7 @@
 
 
 
-                            <button class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
+                            <button class="btn bg-light-blue waves-effect" type="submit">SUBMIT</button>
                         </form>
                     </div>
                 </div>

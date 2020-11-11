@@ -1,4 +1,5 @@
-<?php namespace App\Models;
+<?php 
+namespace App\Models;
 
 use CodeIgniter\Model;
 
@@ -7,7 +8,8 @@ class M_admin extends Model
     protected $table = 't_admin';
     protected $primaryKey = 'id_admin';
     protected $useTimestamps = true;
-    protected $allowedFields = ['nip','nama','jenis_kelamin','password','img'];
+    protected $allowedFields = ['nip','nama','gender','password','img'];
+
     public function getAdmin($id = false)
     {
         if($id === false){
@@ -21,4 +23,8 @@ class M_admin extends Model
         $query = $this->db->table($this->table)->insert($data);
         return $query;
     }
+    // public function updateAdmin($data, $id){
+    //     $query = $this->db->table($this->table)->update($data,$id);
+    //     return $query;
+    // }
 }
