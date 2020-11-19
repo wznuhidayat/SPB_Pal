@@ -27,8 +27,7 @@
                     <div class="header">
                         <h2>ADD ADMIN</h2>
                         <ul class="header-dropdown m-r-5">
-                            <button type="button" onclick="window.location.href='<?= base_url('administator/admin') ?>';" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="left" title="Tambah Admin">
-                                <!-- <a href="<?= base_url() ?>/administator/addAdmin" > -->
+                            <button type="button" onclick="window.location.href='<?= base_url('administator/satuan') ?>';" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="left" title="Tambah Admin">
                                 <i class="material-icons">keyboard_backspace</i>
                                 <span>Back</span>
                                 <!-- </a> -->

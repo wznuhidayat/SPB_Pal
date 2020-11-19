@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 class M_admin extends Model
 {
     protected $table = 't_admin';
-    protected $primaryKey = 'id_admin';
+    protected $primaryKey = 'nip';
     protected $useTimestamps = true;
     protected $allowedFields = ['nip','nama','gender','password','img'];
 
@@ -15,7 +15,7 @@ class M_admin extends Model
         if($id === false){
             return $this->findAll();
         }else{
-            return $this->where(['id_admin' => $id])->first();
+            return $this->where(['nip' => $id])->first();
         }   
     }
     public function saveAdmin($data)
@@ -23,8 +23,8 @@ class M_admin extends Model
         $query = $this->db->table($this->table)->insert($data);
         return $query;
     }
-    // public function updateAdmin($data, $id){
-    //     $query = $this->db->table($this->table)->update($data,$id);
-    //     return $query;
-    // }
+    public function updateAdmin($data, $id){
+        $query = $this->db->table($this->table)->update($data,['nip' => $id]);
+        return $query;
+    }
 }

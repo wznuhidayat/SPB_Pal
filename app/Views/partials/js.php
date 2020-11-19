@@ -54,7 +54,8 @@
 
 <!-- SweetAlert Plugin Js -->
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/sweetalert/sweetalert.min.js"></script>
-
+<!-- autosize -->
+<script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/autosize/autosize.js"></script>
  
 <!-- Custom Js -->
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/js/admin.js"></script>
@@ -63,6 +64,21 @@
 <!-- Demo Js -->
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/js/demo.js"></script>
 <script type="text/javascript">
+    function previewImg(){
+      const imageItem = document.querySelector('#gambar');
+      const imageItemLabel = document.querySelector('.custom-file-label');
+      const imgPreview = document.querySelector('.img-preview');
+
+      // imageItemLabel.textContent = imageItem.files[0].name;
+
+      const fileImage = new FileReader();
+      fileImage.readAsDataURL(imageItem.files[0]);
+
+      fileImage.onload = function(e){
+        imgPreview.src = e.target.result;
+      }
+    }
+
     $(".remove").click(function(){
         var id = $(this).parents("tr").attr("id");
     
@@ -88,6 +104,7 @@
              success: function(data) {
                   $("#"+id).remove();
                   swal("Terhapus!", "Data telah dihapus.", "success");
+                  document.getElementById('deleted').style.display = 'block';
              }
           });
         } else {
@@ -121,6 +138,7 @@
              success: function(data) {
                   $("#"+id).remove();
                   swal("Terhapus!", "Data telah dihapus.", "success");
+                  document.getElementById('deleted').style.display = 'block';
              }
           });
         } else {
@@ -129,6 +147,42 @@
       });
      
     });
+    $(".remove-brng").click(function(){
+        var id = $(this).parents("tr").attr("id");
+    
+       swal({
+        title: "Apakah anda yakin ingin menghapus?",
+        text: "Data yang dihapus tidak akan bisa di kembalikan!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Ya, hapus data!",
+        cancelButtonText: "Tidak, batal!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      },
+      function(isConfirm) {
+        if (isConfirm) {
+          $.ajax({
+             url: '/itemPerson/delete/'+id,
+             type: 'DELETE',
+             error: function() {
+                alert('Something is wrong');
+             },
+             success: function(data) {
+                  $("#"+id).remove();
+                  swal("Terhapus!", "Data barang telah dihapus.", "success");
+                  document.getElementById('deleted').style.display = 'block';
+             }
+          });
+        } else {
+          swal("Batal", "Data tidak jadi dihapus :)", "error");
+        }
+      });
+     
+    });
+
+    
     
 </script>
 

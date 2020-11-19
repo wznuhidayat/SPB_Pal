@@ -36,9 +36,9 @@
                         </ul>
                     </div>
                     <div class="body">
-                        <form action="/administator/updateAdmin/<?= $admin['id_admin']; ?>" method="post" enctype="multipart/form-data">
+                        <form action="/administator/updateAdmin/<?= $admin['nip']; ?>" method="post" enctype="multipart/form-data">
                             <?= csrf_field(); ?>
-                            <input type="hidden" name="id_admin" value="<?= $admin['id_admin']; ?>">
+                            <input type="hidden" name="oldimg" value="<?= $admin['img'] ?>">
                             <div class="form-group form-float">
                                 <div class="form-line <?= ($validation->hasError('nip')) ? 'error' : '' ?>">
                                     <input type="number" class="form-control" name="nip" pattern="[0-9]{8,12}" value="<?= $admin['nip']; ?>" required>
@@ -75,9 +75,16 @@
                                 </div>
                             </div>
                             <div class="form-group form-float">
-                                <div class="form-line">
-                                    <input type="file" name="file" class="form-control">
-                                    <!-- <label class="form-label">Password Confirmation</label> -->
+                                <div class="col-xs-6 col-md-3">
+                                    <a href="javascript:void(0);" class="thumbnail">
+                                        <label class="form-label custom-file-label">Foto Profil</label>
+                                        <img src="/img/admin/<?= $admin['img'] ?>" class="img-responsive img-preview">
+                                    </a>
+                                </div>
+                                <div class="form-line <?= ($validation->hasError('gambar')) ? 'error' : '' ?>">
+                                    <input type="file" name="gambar" class="form-control" id="gambar" onchange="previewImg()">
+                                    <label class="form-label" for="gambar"></label>
+                                    <label id="minmaxlength-error" class="error"><?= $validation->getError('gambar'); ?></label>
                                 </div>
                             </div>
 

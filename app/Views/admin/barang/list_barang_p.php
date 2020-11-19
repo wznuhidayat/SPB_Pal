@@ -12,7 +12,7 @@
                 </li>
                 <li>
                     <a href="javascript:void(0);">
-                        <i class="material-icons">person</i> Admin
+                        <i class="material-icons">person</i> Petugas
                     </a>
                 </li>
                 <li class="active">
@@ -27,14 +27,12 @@
                 <?= $this->include('crud_massage') ?>
                     <div class="header">
                         <h2>
-                            TABEL ADMIN
+                            TABEL BARANG PERSONAL
                         </h2>
                         <ul class="header-dropdown m-r-5">
-                            <button type="button" onclick="window.location.href='<?= base_url('administator/addAdmin') ?>';" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="left" title="Tambah Admin">
-                                <!-- <a href="<?= base_url() ?>/administator/addAdmin" > -->
+                            <button type="button" onclick="window.location.href='<?= base_url('administator/addItemPerson') ?>';" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="left" title="Tambah Barang">
                                 <i class="material-icons">person_add</i>
-                                <span>Add Admin</span>
-                                <!-- </a> -->
+                                <span>Add Barang</span>
                             </button>
 
                         </ul>
@@ -45,9 +43,10 @@
                                 <thead>
                                     <tr>
                                         <th>Image</th>
-                                        <th>NIP</th>
+                                        <th>QR Code</th>
                                         <th>Nama</th>
-                                        <th>Gender</th>
+                                        <th>Nama Pemilik</th>
+                                        <th>Keterangan</th>
                                         <th>Option</th>
 
                                     </tr>
@@ -55,33 +54,35 @@
                                 <tfoot>
                                     <tr>
                                         <th>Image</th>
-                                        <th>NIP</th>
+                                        <th>QR Code</th>
                                         <th>Nama</th>
-                                        <th>Gender</th>
+                                        <th>Nama Pemilik</th>
+                                        <th>Keterangan</th>
                                         <th>Option</th>
                                     </tr>
                                 </tfoot>
 
                                 <tbody>
                                     <?php
-                                    foreach ($admin as $adm) : ?>
-                                        <tr id="<?php echo $adm['nip']; ?>">
-                                            <td><img src="/img/admin/<?= $adm['img']; ?>" alt="" width="45"></td>
-                                            <td><?= $adm["nip"] ?></td>
-                                            <td><?= $adm["nama"] ?></td>
-                                            <td><?= $adm["gender"] ?></td>
+                                    foreach ($barang as $brng) : ?>
+                                        <tr id="<?php echo $brng['qr_code']; ?>">
+                                            <td><img src="/img/barang/<?= $brng['img']; ?>" alt="" width="45"></td>
+                                            <td><?= $brng["qr_code"] ?></td>
+                                            <td><?= $brng["nama"] ?></td>
+                                            <td><?= $brng["nama_pemilik"] ?></td>
+                                            <td><?= $brng["keterangan"] ?></td>
                                             <td class="row">
-                                                <div class="button-group js-sweetalert button">
-                                                    <button type="button" onclick="window.location.href='<?= base_url('admin/edit/' . $adm['nip']) ?>';" class="btn btn-xs bg-light-blue waves-effect" data-toggle="tooltip" data-placement="top" title="Detail">
-                                                        <i class="material-icons">remove_red_eye</i>
+                                                <div class="button-group">
+                                                    <button type="button" onclick="window.location.href='<?= base_url('barangperson/edit/' . $brng['qr_code']) ?>';" class="btn btn-xs bg-light-blue waves-effect" data-toggle="tooltip" data-placement="top" title="Detail">
+                                                        <i class="material-icons clearfix">remove_red_eye</i>
                                                     </button>
-                                                    <button type="button" onclick="window.location.href='<?= base_url('admin/edit/' . $adm['nip']) ?>';" class="btn btn-xs bg-default waves-effect" data-toggle="tooltip" data-placement="top" title="Edit" >
+                                                    <button type="button" onclick="window.location.href='<?= base_url('barangperson/edit/' . $brng['qr_code']) ?>';" class="btn btn-xs bg-default waves-effect" data-toggle="tooltip" data-placement="top" title="Edit" >
                                                         <i class="material-icons">edit</i>
                                                     </button>
-                                                    <form action="/admin/delete/<?= $adm['nip']; ?>" style="display: inline;" method="post" >
+                                                    <form action="/itemPerson/delete/<?= $brng['qr_code']; ?>" style="display: inline;" method="post">
                                                         <?= csrf_field(); ?>
                                                         <input type="hidden" name="_method" value="DELETE">
-                                                        <button type="button" class="btn btn-xs bg-red waves-effect remove" data-toggle="tooltip" data-placement="top" title="Delete" >
+                                                        <button type="button" class="btn btn-xs bg-red waves-effect remove-brng" data-toggle="tooltip" data-placement="top" title="Delete">
                                                             <i class="material-icons">delete</i>
                                                         </button>
                                                     </form>

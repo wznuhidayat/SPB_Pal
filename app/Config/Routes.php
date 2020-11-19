@@ -31,13 +31,17 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-$routes->get('/login', 'Administator::login');
+$routes->get('/login', 'Auth::login');
+$routes->get('/administator', 'Administator::',['filter' => 'auth']);
+$routes->get('/dashboard', 'Administator::index',['filter' => 'auth']);
 $routes->get('/admin/edit/(:segment)','Administator::editAdmin/$1');
 $routes->get('/satuan/edit/(:segment)','Administator::editSatuan/$1');
 $routes->get('/petugas/edit/(:segment)','Administator::editPetugas/$1');
+$routes->get('/barangperson/edit/(:segment)','Administator::editItemPerson/$1');
 $routes->delete('/admin/delete/(:num)','Administator::delAdmin/$1');
 $routes->delete('/satuan/delete/(:num)','Administator::delSatuan/$1');
 $routes->delete('/petugas/delete/(:num)','Administator::delPetugas/$1');
+$routes->delete('/itemPerson/delete/(:segment)','Administator::delItemPerson/$1');
 
 /**
  * --------------------------------------------------------------------
