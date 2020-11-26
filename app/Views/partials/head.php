@@ -22,14 +22,18 @@
     <!-- Animation Css -->
     <link href="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/animate-css/animate.css" rel="stylesheet" />
     <!-- JQuery DataTable Css -->
-    <link href="<?= base_url()?>/template/AdminBSBMaterialDesign/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
     <!-- Morris Chart Css-->
     <link href="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/morrisjs/morris.css" rel="stylesheet" />
-     <!-- Sweetalert Css -->
-     <link href="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <!-- Sweetalert Css -->
+    <link href="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <!-- Bootstrap Material Datetime Picker Css -->
+    <link href="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
 
+    <!-- Bootstrap DatePicker Css -->
+    <link href="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
     <!-- Dropzone Css -->
-    <link href="<?= base_url()?>/template/AdminBSBMaterialDesign/plugins/dropzone/dropzone.css" rel="stylesheet">
+    <link href="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/dropzone/dropzone.css" rel="stylesheet">
 
     <!-- Custom Css -->
     <link href="<?= base_url() ?>/template/AdminBSBMaterialDesign/css/style.css" rel="stylesheet">

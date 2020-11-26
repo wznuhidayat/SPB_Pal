@@ -12,7 +12,7 @@ class M_barang_p extends Model
     public function getBarangPersonal($id = false)
     {
         if($id === false){
-            return $this->findAll();
+            return $this->orderBy('created_at','desc')->findAll();
         }else{
             return $this->where(['qr_code' => $id])->first();
         }   

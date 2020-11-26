@@ -13,7 +13,7 @@ class M_petugas extends Model
     public function getPetugas($id = false)
     {
         if($id === false){
-            return $this->findAll();
+            return $this->orderBy('created_at','desc')->findAll();
         }else{
             return $this->where(['nip' => $id])->first();
         }   

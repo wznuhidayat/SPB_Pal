@@ -47,13 +47,14 @@
                             <div class="form-group form-float">
                                 <div class="form-line <?= ($validation->hasError('name_user')) ? 'error' : '' ?>">
                                     <input type="text" class="form-control" name="name_user" aria-required="true">
-                                    <label class="form-label">Name User</label>
+                                    <label class="form-label">Pemilik</label>
                                     <label id="minmaxlength-error" class="error" for="minmaxlength"><?= $validation->getError('name_user'); ?></label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <textarea rows="1" class="form-control no-resize auto-growth" name="keterangan" placeholder="Masukkan keterangan mengenai barang" style="overflow: hidden; overflow-wrap: break-word; height: 100px;"></textarea>
+                                    <label class="form-label">Detail barang</label>
+                                    <textarea rows="1" class="form-control no-resize auto-growth" name="keterangan" style="overflow: hidden; overflow-wrap: break-word; height: 100px;"></textarea>
                                 </div>
                             </div>
                             <div class="form-group form-float">

@@ -4,11 +4,11 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="images/user.png" width="48" height="48" alt="User" />
+                    <img src="/img/admin/<?= session()->get('img')?>" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</div>
-                    <div class="email">john.doe@example.com</div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= session()->get('nama'); ?></div>
+                    <div class="idnip"><?= session()->get('nip'); ?></div>
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
@@ -46,7 +46,7 @@
                                 <a href="<?= base_url()?>/administator/itemPerson">Barang Pribadi</a>
                             </li>
                             <li>
-                                <a href="pages/forms/advanced-form-elements.html">Barang Kontrak</a>
+                                <a href="/administator/material">Barang Material</a>
                             </li>
                             <li>
                                 <a href="pages/forms/form-examples.html">Form Examples</a>
@@ -78,7 +78,7 @@
                                 <a href="<?= base_url()?>/administator/satuan">Satuan</a>
                             </li>
                             <li>
-                                <a href="pages/forms/advanced-form-elements.html">Jabatan</a>
+                                <a href="/administator/divisi">Code Divisi</a>
                             </li>
                             <li>
                                 <a href="pages/forms/form-examples.html">Lokasi</a>

@@ -55,7 +55,8 @@
                             </div>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <textarea rows="1" class="form-control no-resize auto-growth" name="keterangan" placeholder="Masukkan keterangan mengenai barang" style="overflow: hidden; overflow-wrap: break-word; height: 100px;"><?= $barang['keterangan']; ?></textarea>
+                                    <label class="form-label">Detail Barang</label>
+                                    <textarea rows="1" class="form-control no-resize auto-growth" name="keterangan" style="overflow: hidden; overflow-wrap: break-word; height: 100px;"><?= $barang['keterangan']; ?></textarea>
                                 </div>
                             </div>
 

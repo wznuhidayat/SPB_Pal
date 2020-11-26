@@ -13,7 +13,7 @@ class M_admin extends Model
     public function getAdmin($id = false)
     {
         if($id === false){
-            return $this->findAll();
+            return $this->orderBy('created_at','desc')->findAll();
         }else{
             return $this->where(['nip' => $id])->first();
         }   

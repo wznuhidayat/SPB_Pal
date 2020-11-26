@@ -30,6 +30,7 @@ class Auth extends BaseController
                 $ses_data = [
                     'nip'    => $data['nip'],
                     'nama'     => $data['nama'],
+                    'img'   => $data['img'],
                     'logged_in'     => TRUE
                 ];
                 $session->set($ses_data);
@@ -45,7 +46,6 @@ class Auth extends BaseController
     }
     public function logout()
     {
-        $session = session();
         $session->destroy();
         return redirect()->to('/login');
     }

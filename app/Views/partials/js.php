@@ -45,7 +45,13 @@
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+<!-- Moment JS -->
+<script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/momentjs/moment.js"></script>
 
+<!-- Datetime Picker Plugin Js-->
+<script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+<!-- Date Picker Plugin JS -->
+<script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <!-- Tooltip Js -->
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/js/pages/ui/tooltips-popovers.js"></script>
 
@@ -61,130 +67,12 @@
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/js/admin.js"></script>
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/js/pages/tables/jquery-datatable.js"></script>
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/js/pages/ui/dialogs.js"></script>
+<script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/js/pages/forms/basic-form-elements.js"></script>
 <!-- Demo Js -->
 <script src="<?= base_url() ?>/template/AdminBSBMaterialDesign/js/demo.js"></script>
-<script type="text/javascript">
-    function previewImg(){
-      const imageItem = document.querySelector('#gambar');
-      const imageItemLabel = document.querySelector('.custom-file-label');
-      const imgPreview = document.querySelector('.img-preview');
+<script src="<?= base_url() ?>/assets/js/myadmin.js"></script>
+<script src="<?= base_url() ?>/assets/js/moment-with-locales.min.js"></script>
 
-      // imageItemLabel.textContent = imageItem.files[0].name;
-
-      const fileImage = new FileReader();
-      fileImage.readAsDataURL(imageItem.files[0]);
-
-      fileImage.onload = function(e){
-        imgPreview.src = e.target.result;
-      }
-    }
-
-    $(".remove").click(function(){
-        var id = $(this).parents("tr").attr("id");
-    
-       swal({
-        title: "Apakah anda yakin ingin menghapus?",
-        text: "Data yang dihapus tidak akan bisa di kembalikan!",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonClass: "btn-danger",
-        confirmButtonText: "Ya, hapus data!",
-        cancelButtonText: "Tidak, batal!",
-        closeOnConfirm: false,
-        closeOnCancel: false
-      },
-      function(isConfirm) {
-        if (isConfirm) {
-          $.ajax({
-             url: '/admin/delete/'+id,
-             type: 'DELETE',
-             error: function() {
-                alert('Something is wrong');
-             },
-             success: function(data) {
-                  $("#"+id).remove();
-                  swal("Terhapus!", "Data telah dihapus.", "success");
-                  document.getElementById('deleted').style.display = 'block';
-             }
-          });
-        } else {
-          swal("Batal", "Data tidak jadi dihapus :)", "error");
-        }
-      });
-     
-    });
-    $(".remove-ptgs").click(function(){
-        var id = $(this).parents("tr").attr("id");
-    
-       swal({
-        title: "Apakah anda yakin ingin menghapus?",
-        text: "Data yang dihapus tidak akan bisa di kembalikan!",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonClass: "btn-danger",
-        confirmButtonText: "Ya, hapus data!",
-        cancelButtonText: "Tidak, batal!",
-        closeOnConfirm: false,
-        closeOnCancel: false
-      },
-      function(isConfirm) {
-        if (isConfirm) {
-          $.ajax({
-             url: '/petugas/delete/'+id,
-             type: 'DELETE',
-             error: function() {
-                alert('Something is wrong');
-             },
-             success: function(data) {
-                  $("#"+id).remove();
-                  swal("Terhapus!", "Data telah dihapus.", "success");
-                  document.getElementById('deleted').style.display = 'block';
-             }
-          });
-        } else {
-          swal("Batal", "Data tidak jadi dihapus :)", "error");
-        }
-      });
-     
-    });
-    $(".remove-brng").click(function(){
-        var id = $(this).parents("tr").attr("id");
-    
-       swal({
-        title: "Apakah anda yakin ingin menghapus?",
-        text: "Data yang dihapus tidak akan bisa di kembalikan!",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonClass: "btn-danger",
-        confirmButtonText: "Ya, hapus data!",
-        cancelButtonText: "Tidak, batal!",
-        closeOnConfirm: false,
-        closeOnCancel: false
-      },
-      function(isConfirm) {
-        if (isConfirm) {
-          $.ajax({
-             url: '/itemPerson/delete/'+id,
-             type: 'DELETE',
-             error: function() {
-                alert('Something is wrong');
-             },
-             success: function(data) {
-                  $("#"+id).remove();
-                  swal("Terhapus!", "Data barang telah dihapus.", "success");
-                  document.getElementById('deleted').style.display = 'block';
-             }
-          });
-        } else {
-          swal("Batal", "Data tidak jadi dihapus :)", "error");
-        }
-      });
-     
-    });
-
-    
-    
-</script>
 
 </body>
 

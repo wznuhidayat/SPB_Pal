@@ -38,6 +38,8 @@ class BaseController extends Controller
 		parent::initController($request, $response, $logger);
 		session();
 		$this->uri = service('uri');
+		helper('dateindo','url');
+		$request = \Config\Services::request();
 		//--------------------------------------------------------------------
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
