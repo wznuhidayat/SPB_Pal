@@ -26,4 +26,8 @@ class M_barang_p extends Model
         $query = $this->db->table($this->table)->update($data, ['qr_code' => $id]);
         return $query;
     }
+    public function countItemPerson(){
+        $query = $this->db->table($this->table)->countAll();
+        return $query;
+    }
 }

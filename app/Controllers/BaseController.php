@@ -14,7 +14,11 @@ namespace App\Controllers;
  *
  * @package CodeIgniter
  */
-
+use CodeIgniter\Validation\Rules;
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\LabelAlignment;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Response\QrCodeResponse;
 use CodeIgniter\Controller;
 
 class BaseController extends Controller
@@ -27,7 +31,7 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
-	protected $helpers = [];
+	protected $helpers = ['form'];
 	protected $uri;
 	/**
 	 * Constructor.
@@ -38,7 +42,7 @@ class BaseController extends Controller
 		parent::initController($request, $response, $logger);
 		session();
 		$this->uri = service('uri');
-		helper('dateindo','url');
+		helper('dateindo','url','form');
 		$request = \Config\Services::request();
 		//--------------------------------------------------------------------
 		// Preload any models, libraries, etc, here.
@@ -46,4 +50,26 @@ class BaseController extends Controller
 		// E.g.:
 		// $this->session = \Config\Services::session();
 	}
+	function generateQrCode($kode, $filename, $url) {
+		$this->qrcode = new QrCode($url);
+		$this->qrcode->setSize(500);
+		$this->qrcode->setWriterByName('png');
+		$this->qrcode->setEncoding('UTF-8');
+		$this->qrcode->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH());
+		$this->qrcode->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0]);
+		$this->qrcode->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0]);
+		$this->qrcode->setLogoPath(ROOTPATH . 'assets/img/logo_kab.png');
+		$this->qrcode->setLabel($kode, 30);
+		$this->qrcode->setLogoSize(150, 150);
+		$this->qrcode->setValidateResult(true);
+		$this->qrcode->setRoundBlockSize(true, QrCode::ROUND_BLOCK_SIZE_MODE_MARGIN);
+		$this->qrcode->setRoundBlockSize(true, QrCode::ROUND_BLOCK_SIZE_MODE_ENLARGE);
+		$this->qrcode->setRoundBlockSize(true, QrCode::ROUND_BLOCK_SIZE_MODE_SHRINK);
+		$this->qrcode->setWriterOptions(['exclude_xml_declaration' => true]);
+		header('Content-Type: ' . $this->qrcode->getContentType());
+		$this->qrcode->writeFile($filename);
+		$image = imagecreatefromstring(file_get_contents($filename));
+		is_resource($image);
+		return imagedestroy($image);
+		}
 }

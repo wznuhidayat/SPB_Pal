@@ -34,7 +34,8 @@
     <link href="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
     <!-- Dropzone Css -->
     <link href="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/dropzone/dropzone.css" rel="stylesheet">
-
+    <!-- Bootstrap Select css -->
+    <link href="<?= base_url() ?>/template/AdminBSBMaterialDesign/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet">
     <!-- Custom Css -->
     <link href="<?= base_url() ?>/template/AdminBSBMaterialDesign/css/style.css" rel="stylesheet">
 

@@ -7,8 +7,15 @@ use App\Models\M_satuan;
 use App\Models\M_petugas;
 use App\Models\M_barang_p;
 use App\Models\M_barang_m;
+use App\Models\M_barang_keluar;
 use App\Models\M_code_divisi;
-use CodeIgniter\Validation\Rules;
+// use CodeIgniter\Validation\Rules;
+// use Endroid\QrCode\ErrorCorrectionLevel;
+// use Endroid\QrCode\LabelAlignment;
+// use Endroid\QrCode\QrCode;
+// use Endroid\QrCode\Response\QrCodeResponse;
+
+use CodeItNow\BarcodeBundle\Utils\QrCode;
 
 class Administator extends BaseController
 {
@@ -20,14 +27,21 @@ class Administator extends BaseController
         $this->M_petugas = new M_petugas();
         $this->M_barang_p = new M_barang_p();
         $this->M_barang_m = new M_barang_m();
+        $this->M_barang_keluar = new M_barang_keluar();
         $this->M_code_divisi = new M_code_divisi();
         helper('url', 'form');
     }
     public function index()
     {
         // dd(session()->get('img'));
+        $countall = $this->M_barang_keluar->countBarangKeluar()+$this->M_barang_p->countItemPerson()+$this->M_barang_m->countMaterial();
+
         $data = [
-            'title' => 'Dashboard'
+            'title' => 'Dashboard',
+            'item_out' => $this->M_barang_keluar->countBarangKeluar(),
+            'item_person' => $this->M_barang_p->countItemPerson(),
+            'item_material' => $this->M_barang_m->countMaterial(),
+            'count_all' => $countall
         ];
         echo view('admin/dashboard', $data);
     }
@@ -694,7 +708,7 @@ class Administator extends BaseController
         } elseif ($url == 'detail' && $id != null) {
             $data = [
                 'title' => 'Detail Material',
-                'barang' => $this->M_barang_m->getBarangMaterial($id)
+                'material' => $this->M_barang_m->getBarangMaterial($id)
             ];
             return view('admin/barang_material/detail_material', $data);
         } elseif ($url == 'index' || $url == '') {
@@ -703,12 +717,181 @@ class Administator extends BaseController
                 'barang' => $this->M_barang_m->getBarangMaterial()
             ];
             return view('admin/barang_material/list_material', $data);
+        } else{
+            return 'eror';
         }
     }
+    public function barangKeluar($url = 'index', $id = null){
 
+        if($url == 'create'){
+            $query_divisi = $this->M_code_divisi->findAll();
+            $divisi[null] = '- Select -';
+            foreach ($query_divisi as $div) {
+                $divisi[$div['id_divisi']] = '['.$div['code_divisi'].'] - '.$div['nama_divisi'];
+            }
+            $data = [
+                'title' => 'Tambah Barang Keluar',
+                'selected' => null,
+                'divisi' => $divisi,
+                'validation' => \Config\Services::validation()
+            ];
+            
+            return view('admin/barang_keluar/add_barang_keluar', $data);
+        }elseif($url == 'save'){
+            if (!$this->validate([
+                'name' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Nama barang harus diisi'
+                    ]
+                ],
+                'pngg_jwb' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Nama penanggung jawab harus diisi'
+                    ]
+                ],
+                'outdate' => [
+                    'rules' => 'valid_date|required',
+                    'errors' => [
+                        'required' => 'Tanggal wajib diisi',
+                        'valid_date' => 'Format tanggal salah'
+                    ]
+                ],
+                'gambar' => [
+                    'rules' => 'max_size[gambar,1024]|mime_in[gambar,image/jpg,image/jpeg,image/gif,image/png]',
+                    'errors' => [
+                        'mime_in' => 'Format gambar salah',
+                        'max_size' => 'Ukuran gambar terlalu besar'
+                    ]
+                ],
+            ])) {
+                return redirect()->to('/administator/barangkeluar/create')->withInput();
+            }
+            $fileImg = $this->request->getFile('gambar');
+            if ($fileImg->getError() == 4) {
+                $nameImg = 'default.png';
+            } else {
+                $nameImg = $fileImg->getRandomName();
+                $fileImg->move('img/itemout', $nameImg);
+            }
+            $str = "";
+            $characters = array_merge(range('0', '6'));
+            $max = count($characters) - 1;
+            for ($i = 0; $i < 6; $i++) {
+                $rand = mt_rand(0, $max);
+                $str .= $characters[$rand];
+            }
+            $data = [
+                'code_item_out' => 'IO' . $str,
+                'nama' => $this->request->getVar('name'),
+                'penanggung_jwb' => $this->request->getVar('pngg_jwb'),
+                'id_divisi' => $this->request->getVar('id_divisi'),
+                'keterangan' => $this->request->getVar(('keterangan')),
+                'out_date' => $this->request->getVar('outdate'),
+                'img' => $nameImg,
+                'created_at' => date('Y/m/d h:i:s'),
+                'updated_at' => date('Y/m/d h:i:s')
+            ];
+            $this->M_barang_keluar->saveBarangKeluar($data);
+            session()->setFLashdata('success', 'Data berhasil disimpan');
+            return redirect()->to('/administator/barangkeluar');
+        }elseif($url == 'edit' && $id != null){
+            $query_divisi = $this->M_code_divisi->findAll();
+            $divisi[null] = '- Select -';
+            foreach ($query_divisi as $div) {
+                $divisi[$div['id_divisi']] = '['.$div['code_divisi'].'] - '.$div['nama_divisi'];
+            }
+            $items = $this->M_barang_keluar->getBarangKeluar($id);
+            $data = [
+                'title' => 'Edit Keluar',
+                'divisi' => $divisi,
+                'selected' => $items['id_divisi'],
+                'validation' => \Config\Services::validation(),
+                'barang' => $items
+            ];
+            return view('admin/barang_keluar/edit_barang_keluar', $data);
+        }elseif($url == 'update' && $id != null){
+            $oldData = $this->M_barang_keluar->getBarangKeluar($this->request->getPost('code_item_out'));
 
+            if (!$this->validate([
+                'name' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Nama barang material harus diisi'
+                    ]
+                ],
+                'penanggung_jwb' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Nama penanggung jawab harus diisi'
+                    ]
+                ],
+                'out_date' => [
+                    'rules' => 'valid_date',
+                    'errors' => [
+                        'valid_date' => 'format tanggal salah'
+                    ]
+                ],
 
+                'gambar' => [
+                    'rules' => 'max_size[gambar,1024]|mime_in[gambar,image/jpg,image/jpeg,image/gif,image/png]',
+                    'errors' => [
+                        'mime_in' => 'Format gambar salah',
+                        'max_size' => 'Ukuran gambar terlalu besar'
+                    ]
+                ],
+            ])) {
+                $validation = \Config\Services::validation();
+                return redirect()->to('/administator/barangkeluar/edit/' . $id)->withInput();
+            }
+            $fileImg = $this->request->getFile('gambar');
+            if ($fileImg->getError() == 4) {
+                $nameImg = $this->request->getVar('oldimg');
+            } else {
+                $nameImg = $fileImg->getRandomName();
+                $fileImg->move('img/itemout', $nameImg);
+                if ($this->request->getVar('oldimg') != 'default.png') {
+                    unlink('img/itemout/' . $this->request->getVar('oldimg'));
+                }
+            }
+            $data = array(
+                'nama' => $this->request->getPost('name'),
+                'id_divisi' => $this->request->getPost('id_divisi'),
+                'penanggung_jwb' => $this->request->getPost('penanggung_jwb'),
+                'keterangan' => $this->request->getPost('keterangan'),
+                'out_date' => $this->request->getPost('out_date'),
+                'img' => $nameImg,
+                'created_at' => $oldData["created_at"],
+                'updated_at' => date('Y/m/d h:i:s')
+            );
+            $this->M_barang_keluar->updateBarangKeluar($data, $this->request->getPost('code_item_out'));
+            return redirect()->to('/administator/barangkeluar');
+        }elseif($url == 'delete' && $id != null){
+            $item = $this->M_barang_keluar->getBarangKeluar($id);
+            if ($item['img'] != 'default.png') {
+                unlink('img/itemout/' . $item['img']);
+            }
+            $this->M_barang_keluar->delete($id);
+            return redirect()->to('/administator/barangkeluar');
+        }elseif($url == 'count'){
+            return $this->M_barang_keluar->countBarangKeluar();
+        }
+        $query_divisi = $this->M_code_divisi->findAll();
+            $divisi[null] = 'Tidak ada';
+            foreach ($query_divisi as $div) {
+                $divisi[$div['id_divisi']] = $div['nama_divisi'];
+            }
+        $data = [
+            'title' => 'Daftar Barang Material',
+            'divisi' => $divisi,
+            'barang' => $this->M_barang_keluar->getBarangKeluar()
+        ];
+        // dd($data);
+        return view('admin/barang_keluar/list_barang_keluar', $data);
+    }
 
+    
 
     // divisi
     public function divisi($url = 'index', $id = null)
@@ -784,7 +967,7 @@ class Administator extends BaseController
                 'code_divisi' => $ruleCode
             ])) {
                 $validation = \Config\Services::validation();
-                return redirect()->to('/administator/divisi/edit/'.$this->request->getPost('id_divisi'))->withInput()->with('validation', $validation);
+                return redirect()->to('/administator/divisi/edit/' . $this->request->getPost('id_divisi'))->withInput()->with('validation', $validation);
             }
 
             $data = array(
@@ -793,10 +976,10 @@ class Administator extends BaseController
                 'nama_divisi' => $this->request->getPost('nama_divisi'),
                 'keterangan' => $this->request->getPost('keterangan'),
             );
-            
+
             $this->M_code_divisi->save($data);
             return redirect()->to('/administator/divisi');
-        }elseif($url == 'delete' && $id != null){
+        } elseif ($url == 'delete' && $id != null) {
             $this->M_code_divisi->delete($id);
             return redirect()->to('/administator/divisi');
         }
@@ -806,8 +989,46 @@ class Administator extends BaseController
         ];
         return view('admin/code_divisi/list_code_divisi', $data);
     }
+
     public function example()
     {
+        // $qrCode = new QrCode('Life is too short to be generating QR codes');
+
+        // header('Content-Type: ' . $qrCode->getContentType());
+        // // $this->request->setHeader('Content-Endcoding', $qrCode->getContentType());
+        // return $qrCode->writeString();
         return view('admin/code_divisi/example');
+
+        // $qrCode = new QrCode();
+        // $qrCode
+        //     ->setText('1111')
+        //     ->setSize(300)
+        //     ->setPadding(10)
+        //     ->setErrorCorrection('high')
+        //     ->setForegroundColor(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0))
+        //     ->setBackgroundColor(array('r' => 255, 'g' => 255, 'b' => 255, 'a' => 0))
+        //     ->setLabel('PT. PAL Indonesia (persero)')
+        //     ->setLabelFontSize(16)
+        //     ->setImageType(QrCode::IMAGE_TYPE_PNG);
+        // echo '<img src="data:' . $qrCode->getContentType() . ';base64,' . $qrCode->generate() . '" />';
     }
+    // function generateQrCode($filename, $url) {
+    //     $this->qrcode = new QrCode($url);
+    //     $this->qrcode->setSize(500);
+    //     $this->qrcode->setWriterByName('png');
+    //     $this->qrcode->setEncoding('UTF-8');
+    //     $this->qrcode->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH());
+    //     $this->qrcode->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0]);
+    //     $this->qrcode->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0]);
+    //     $this->qrcode->setValidateResult(true);
+    //     $this->qrcode->setRoundBlockSize(true, QrCode::ROUND_BLOCK_SIZE_MODE_MARGIN);
+    //     $this->qrcode->setRoundBlockSize(true, QrCode::ROUND_BLOCK_SIZE_MODE_ENLARGE);
+    //     $this->qrcode->setRoundBlockSize(true, QrCode::ROUND_BLOCK_SIZE_MODE_SHRINK);
+    //     $this->qrcode->setWriterOptions(['exclude_xml_declaration' => true]);
+    //     header('Content-Type: ' . $this->qrcode->getContentType());
+    //     $this->qrcode->writeFile($filename);
+    //     $image = imagecreatefromstring(file_get_contents($filename));
+    //     is_resource($image);
+    //     return imagedestroy($image);
+    //     }
 }

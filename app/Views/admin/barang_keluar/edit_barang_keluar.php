@@ -12,11 +12,11 @@
                 </li>
                 <li>
                     <a href="javascript:void(0);">
-                        <i class="material-icons">business_center</i> Barang material
+                        <i class="material-icons">business_center</i> Barang Keluar
                     </a>
                 </li>
                 <li class="active">
-                    <i class="material-icons">archive</i> Add Barang
+                    <i class="material-icons">archive</i> Edit barang keluar
                 </li>
             </ol>
         </div>
@@ -25,9 +25,9 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>ADD BARANG MATERIAL</h2>
+                        <h2>ADD BARANG KELUAR</h2>
                         <ul class="header-dropdown m-r-5">
-                            <button type="button" onclick="window.location.href='<?= base_url('administator/material') ?>';" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="left" title="Back">
+                            <button type="button" onclick="window.location.href='<?= base_url('administator/barangkeluar') ?>';" class="btn bg-light-blue waves-effect" data-toggle="tooltip" data-placement="left" title="Back">
                                 <i class="material-icons">keyboard_backspace</i>
                                 <span>Back</span>
                                 <!-- </a> -->
@@ -35,40 +35,48 @@
                         </ul>
                     </div>
                     <div class="body">
-                        <form action="/administator/material/save" method="post" enctype="multipart/form-data">
+                        <form action="/administator/barangkeluar/update/<?= $barang['code_item_out'] ?>" method="post" enctype="multipart/form-data">
                             <?= csrf_field(); ?>
+                            <input type="hidden" name="code_item_out" value="<?= $barang['code_item_out']; ?>">
+                            <input type="hidden" name="oldimg" value="<?= $barang['img']; ?>">
                             <div class="form-group form-float">
                                 <div class="form-line <?= ($validation->hasError('name')) ? 'error' : '' ?>">
-                                    <input type="text" class="form-control" name="name" aria-required="true">
+                                    <input type="text" class="form-control" name="name" aria-required="true" value="<?= $barang['nama']; ?>">
                                     <label class="form-label">Nama Barang</label>
                                     <label id="minmaxlength-error" class="error" for="minmaxlength"><?= $validation->getError('name'); ?></label>
                                 </div>
                             </div>
+
                             <div class="form-group form-float">
-                                <div class="form-line <?= ($validation->hasError('vendor')) ? 'error' : '' ?>">
-                                    <input type="text" class="form-control" name="vendor" aria-required="true">
-                                    <label class="form-label">Pengirim/Vendor</label>
-                                    <label id="minmaxlength-error" class="error" for="minmaxlength"><?= $validation->getError('vendor'); ?></label>
+                                <label for="">Divisi</label>
+                                <?= form_dropdown('id_divisi', $divisi, $selected, ['class' => 'form-control show-tick', 'required' => 'required']) ?>
+
+                            </div>
+                            <div class="form-group form-float">
+                                <div class="form-line <?= ($validation->hasError('penanggung_jwb')) ? 'error' : '' ?>">
+                                    <input type="text" class="form-control" name="penanggung_jwb" aria-required="true" value="<?= $barang['penanggung_jwb']; ?>">
+                                    <label class="form-label">Penanggung jawab</label>
+                                    <label id="minmaxlength-error" class="error" for="minmaxlength"><?= $validation->getError('penanggung_jwb'); ?></label>
                                 </div>
                             </div>
                             <div class="form-group form-float">
-                                <div class="form-line" >
-                                    <textarea rows="1" class="form-control no-resize auto-growth" name="keterangan" style="overflow: hidden; overflow-wrap: break-word; height: 100px;"></textarea>
+                                <div class="form-line">
+                                    <textarea rows="1" class="form-control no-resize auto-growth" name="keterangan" style="overflow: hidden; overflow-wrap: break-word; height: 100px;"><?= $barang['keterangan']; ?></textarea>
                                     <label class="form-label">Keterangan</label>
                                 </div>
                             </div>
                             <div class="form-group form-float">
-                                <div class="form-line <?= ($validation->hasError('deadline')) ? 'error' : '' ?>">
-                                <label class="form-label">Deadline</label>
-                                    <input type="text" class="datepicker form-control" name="deadline">
-                                    <label id="minmaxlength-error" class="error" for="minmaxlength"><?= $validation->getError('deadline'); ?></label>
+                                <div class="form-line">
+                                    <label class="form-label">Deadline</label>
+                                    <input type="text" class="datepicker form-control" name="out_date" value="<?= $barang['out_date']; ?>">
                                 </div>
                             </div>
+
                             <div class="form-group form-float">
                                 <div class="col-xs-6 col-md-3">
                                     <a href="javascript:void(0);" class="thumbnail">
                                         <label class="form-label custom-file-label">Foto Barang</label>
-                                        <img src="/img/material/default.png" class="img-responsive img-preview">
+                                        <img src="/img/itemout/<?= $barang['img']; ?>" class="img-responsive img-preview">
                                     </a>
                                 </div>
                                 <div class="form-line <?= ($validation->hasError('gambar')) ? 'error' : '' ?>">

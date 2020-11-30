@@ -49,7 +49,7 @@
                                 <a href="/administator/material">Barang Material</a>
                             </li>
                             <li>
-                                <a href="pages/forms/form-examples.html">Form Examples</a>
+                                <a href="/administator/barangkeluar">Barang Keluar</a>
                             </li>
                             
                         </ul>

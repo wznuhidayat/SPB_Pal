@@ -26,4 +26,8 @@ class M_barang_m extends Model
         $query = $this->db->table($this->table)->update($data, ['code_material' => $id]);
         return $query;
     }
+    public function countMaterial(){
+        $query = $this->db->table($this->table)->countAll();
+        return $query;
+    }
 }
